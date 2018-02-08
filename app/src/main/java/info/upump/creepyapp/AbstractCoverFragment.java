@@ -26,8 +26,8 @@ import info.upump.creepyapp.model.Cover;
  */
 
 public abstract class AbstractCoverFragment  extends Fragment implements LoaderManager.LoaderCallbacks<List<Cover>>, ISwipeController {
-    private List<Cover> listCover = new ArrayList<>();
-    private AdapterCover adapterCover;
+    protected List<Cover> listCover = new ArrayList<>();
+    protected AdapterCover adapterCover;
     protected IControllerFragment iControllerfragment;
 
 
@@ -90,9 +90,11 @@ public abstract class AbstractCoverFragment  extends Fragment implements LoaderM
         if (!coverDao.update(cover)) {
             cover.setRead(!cover.isFavorite());
         }
-        adapterCover.notifyItemChanged(positionItem);
+      notifyFavorite(positionItem);
 
     }
+
+    abstract void notifyFavorite(int positionItem);
 
     @Override
     public void read(int positionItem) {

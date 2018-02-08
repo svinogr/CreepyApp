@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2d2e33</color>
+    <color name="colorPrimaryDark">#e7b86c</color>
+    <color name="colorAccent">#ae7474</color>
+    <color name="colorSwipeToFavorite">#df5959</color>
+    <color name="colorSwipeToRead">#ba4e4e</color>
+    <color name="colorBackWeb">#0a0a0a</color>
+    <color name="colorTextWeb">#FFF</color>
+</resources>

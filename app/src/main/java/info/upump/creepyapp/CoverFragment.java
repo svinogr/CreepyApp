@@ -23,10 +23,8 @@ import info.upump.creepyapp.db.CoverDao;
 import info.upump.creepyapp.loader.LoaderCover;
 import info.upump.creepyapp.model.Cover;
 
-public class CoverFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Cover>>, ISwipeController {
-    private List<Cover> listCover = new ArrayList<>();
-    private AdapterCover adapterCover;
-    private IControllerFragment iControllerfragment;
+public class CoverFragment extends AbstractCoverFragment {
+
 
     public CoverFragment() {
         // Required empty public constructor
@@ -38,31 +36,10 @@ public class CoverFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_cover, container, false);
-        RecyclerView recyclerView = inflate.findViewById(R.id.cover_fragment_recycler);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        adapterCover = new AdapterCover(listCover);
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapterCover);
-
-        ItemTouchHelper.Callback itemTouchHelperCallback = new SwipeCallback(this);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
-        floatingActionButton.setVisibility(View.INVISIBLE);
+    void setTitleAndImg() {
+        System.out.println("history");
         int imgIdent  = getResources().getIdentifier("history", "drawable", getContext().getPackageName());
         iControllerfragment.setTitle("Истории", imgIdent);
-
-        return inflate;
     }
 
     @Override
@@ -71,49 +48,8 @@ public class CoverFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Cover>> loader, List<Cover> data) {
-        listCover.clear();
-        listCover.addAll(data);
-        adapterCover.notifyDataSetChanged();
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Cover>> loader) {
-
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        getLoaderManager().initLoader(0, null, this);
-        iControllerfragment = (IControllerFragment) context;
-    }
-
-
-    @Override
-    public void favorite(int positionItem) {
-        Cover cover = listCover.get(positionItem);
-        cover.setFavorite(!cover.isFavorite());
-        CoverDao coverDao = new CoverDao(getContext());
-        if (!coverDao.update(cover)) {
-            cover.setRead(!cover.isFavorite());
-        }
+    void notifyFavorite(int positionItem) {
         adapterCover.notifyItemChanged(positionItem);
-
-
-    }
-
-    @Override
-    public void read(int positionItem) {
-        Cover cover = listCover.get(positionItem);
-        cover.setRead(!cover.isRead());
-        CoverDao coverDao = new CoverDao(getContext());
-        if (!coverDao.update(cover)) {
-            cover.setRead(!cover.isRead());
-        }
-        adapterCover.notifyItemChanged(positionItem);
-
     }
 
 

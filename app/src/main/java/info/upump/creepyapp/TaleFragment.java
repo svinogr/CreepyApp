@@ -3,8 +3,10 @@ package info.upump.creepyapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import info.upump.creepyapp.db.CoverDao;
 import info.upump.creepyapp.db.IData;
 import info.upump.creepyapp.db.TaleDao;
 import info.upump.creepyapp.loader.RandomImg;
@@ -34,6 +37,10 @@ public class TaleFragment extends Fragment {
     private TextView title;
     private Toolbar toolbar;
     private IControllerFragment iControllerfragment;
+    private static final String START_HTML = "<html><body style=\"text-align:justify; color:";
+    private static final String MIDLLE_HTML = " \">";
+    private static final String END_HTML = "</body></html>";
+
 
     public TaleFragment() {
         // Required empty public constructor
@@ -88,15 +95,28 @@ public class TaleFragment extends Fragment {
             }
         });
 
-
-        System.out.println(cover.getTitle());
         int imgIdent = RandomImg.getRandomIdentForImg(getContext());
-        iControllerfragment.setTitle(cover.getTitle(),imgIdent);
+        iControllerfragment.setTitle(cover.getTitle(), imgIdent);
 
         text = inflate.findViewById(R.id.fragment_tale_text);
-        text.loadDataWithBaseURL(null, tale.getText(), "text/html", "UTF-8", null);
+        text.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBackWeb));
+        text.loadDataWithBaseURL(null, getColoredTextForWebView(), "text/html", "UTF-8", null);
+
+        cover.setRead(true);
+        CoverDao coverDao = new CoverDao(getContext());
+        coverDao.update(cover);
 
         return inflate;
+    }
+
+    @NonNull
+    private String getColoredTextForWebView() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(START_HTML);
+        stringBuilder.append("#"+Integer.toHexString(ContextCompat.getColor(getContext(), R.color.colorTextWeb) & 0x00ffffff) + MIDLLE_HTML);
+        stringBuilder.append(tale.getText());
+        stringBuilder.append(END_HTML);
+        return stringBuilder.toString();
     }
 
     @Override

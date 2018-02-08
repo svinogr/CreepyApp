@@ -6,6 +6,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,13 +22,25 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IControllerFragment {
+
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout appBarLayout;
-    private  ImageView imageView;
+    private ImageView imageView;
+    private Menu menuTool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if (savedInstanceState == null) {
+            // Set the local night mode to some value
+            getDelegate().setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+            // Now recreate for it to take effect
+            recreate();
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +84,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menuTool = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -85,6 +99,22 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            int mode = AppCompatDelegate.getDefaultNightMode();
+            if (mode == AppCompatDelegate.MODE_NIGHT_NO) {
+
+                getDelegate().setDefaultNightMode(
+                        AppCompatDelegate.MODE_NIGHT_YES);
+
+
+            } else {
+                getDelegate().setDefaultNightMode(
+                        AppCompatDelegate.MODE_NIGHT_NO);
+
+            }
+
+            recreate();
+
+
             return true;
         }
 
@@ -95,11 +125,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        Fragment fragment= null;
+        Fragment fragment = null;
         int id = item.getItemId();
 
         if (id == R.id.nav_history) {
-           fragment = CoverFragment.newInstance();
+            fragment = CoverFragment.newInstance();
 
         } else if (id == R.id.nav_favorite) {
             fragment = FavoriteCoverFragment.newInstance();
@@ -107,7 +137,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send_history) {
 
         }
-        if(fragment != null){
+        if (fragment != null) {
             createFragment(fragment);
         }
 
@@ -131,7 +161,7 @@ public class MainActivity extends AppCompatActivity
     public void setTitle(String title, int imgIdent) {
         collapsingToolbarLayout.setTitle(title);
         appBarLayout.setExpanded(true);
-        Picasso.with(this).load(imgIdent).placeholder(R.drawable.ic_favorite_white).into(imageView);
+        Picasso.with(this).load(imgIdent).into(imageView);
     }
 
 

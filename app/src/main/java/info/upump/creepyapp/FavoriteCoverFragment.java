@@ -20,6 +20,9 @@ public class FavoriteCoverFragment extends AbstractCoverFragment {
         iControllerfragment.setTitle("Избранное", imgIdent);
     }
 
+    public FavoriteCoverFragment() {
+    }
+
     public static FavoriteCoverFragment newInstance(){
         return new FavoriteCoverFragment();
     }
@@ -27,5 +30,11 @@ public class FavoriteCoverFragment extends AbstractCoverFragment {
     @Override
     public Loader<List<Cover>> onCreateLoader(int id, Bundle args) {
         return new LoaderFavoriteCover(getContext());
+    }
+
+    @Override
+    void notifyFavorite(int positionItem) {
+        listCover.remove(positionItem);
+        adapterCover.notifyItemRemoved(positionItem);
     }
 }
