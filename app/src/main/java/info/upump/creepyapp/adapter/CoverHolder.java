@@ -7,8 +7,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import info.upump.creepyapp.IControllerfragment;
-import info.upump.creepyapp.MainActivity;
+import info.upump.creepyapp.IControllerFragment;
 import info.upump.creepyapp.R;
 import info.upump.creepyapp.TaleFragment;
 import info.upump.creepyapp.model.Cover;
@@ -34,7 +33,7 @@ class CoverHolder extends RecyclerView.ViewHolder{
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IControllerfragment iControllerfragment = (IControllerfragment) itemView.getContext();
+                IControllerFragment iControllerfragment = (IControllerFragment) itemView.getContext();
                 TaleFragment taleFragment  = TaleFragment.newInstance(cover);
                 iControllerfragment.createFragment(taleFragment);
             }

@@ -3,10 +3,8 @@ package info.upump.creepyapp;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +12,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import java.util.zip.CheckedOutputStream;
-
 import info.upump.creepyapp.db.IData;
 import info.upump.creepyapp.db.TaleDao;
+import info.upump.creepyapp.loader.RandomImg;
 import info.upump.creepyapp.model.Author;
 import info.upump.creepyapp.model.Cover;
 import info.upump.creepyapp.model.Tale;
@@ -36,7 +33,7 @@ public class TaleFragment extends Fragment {
     private WebView text;
     private TextView title;
     private Toolbar toolbar;
-    private IControllerfragment iControllerfragment;
+    private IControllerFragment iControllerfragment;
 
     public TaleFragment() {
         // Required empty public constructor
@@ -73,8 +70,6 @@ public class TaleFragment extends Fragment {
         IData iData = new TaleDao(getContext());
         this.tale = (Tale) iData.getByParent(cover).get(0);
 
-//        System.out.println(tale.toString());
-
     }
 
     @Override
@@ -95,7 +90,8 @@ public class TaleFragment extends Fragment {
 
 
         System.out.println(cover.getTitle());
-        iControllerfragment.setTitle(cover.getTitle(),cover.getImg());
+        int imgIdent = RandomImg.getRandomIdentForImg(getContext());
+        iControllerfragment.setTitle(cover.getTitle(),imgIdent);
 
         text = inflate.findViewById(R.id.fragment_tale_text);
         text.loadDataWithBaseURL(null, tale.getText(), "text/html", "UTF-8", null);
@@ -106,6 +102,6 @@ public class TaleFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        iControllerfragment = (IControllerfragment) context;
+        iControllerfragment = (IControllerFragment) context;
     }
 }

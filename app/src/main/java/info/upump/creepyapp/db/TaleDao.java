@@ -77,4 +77,9 @@ public class TaleDao extends DataBaseDao implements IData<Tale> {
 
     }
 
+    @Override
+    public List<Tale> getAllFavorite() {
+        return null;
+    }
+
 }

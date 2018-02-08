@@ -1,6 +1,5 @@
 package info.upump.creepyapp;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,22 +19,17 @@ import java.util.List;
 import info.upump.creepyapp.adapter.AdapterCover;
 import info.upump.creepyapp.callback.SwipeCallback;
 import info.upump.creepyapp.db.CoverDao;
-import info.upump.creepyapp.loader.LoaderCover;
 import info.upump.creepyapp.model.Cover;
 
-public class CoverFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Cover>>, ISwipeController {
+/**
+ * Created by explo on 08.02.2018.
+ */
+
+public abstract class AbstractCoverFragment  extends Fragment implements LoaderManager.LoaderCallbacks<List<Cover>>, ISwipeController {
     private List<Cover> listCover = new ArrayList<>();
     private AdapterCover adapterCover;
-    private IControllerFragment iControllerfragment;
+    protected IControllerFragment iControllerfragment;
 
-    public CoverFragment() {
-        // Required empty public constructor
-    }
-
-    public static CoverFragment newInstance() {
-        CoverFragment fragment = new CoverFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,16 +53,13 @@ public class CoverFragment extends Fragment implements LoaderManager.LoaderCallb
         itemTouchHelper.attachToRecyclerView(recyclerView);
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.setVisibility(View.INVISIBLE);
-        int imgIdent  = getResources().getIdentifier("history", "drawable", getContext().getPackageName());
-        iControllerfragment.setTitle("Истории", imgIdent);
-
+        setTitleAndImg();
         return inflate;
     }
+    abstract void setTitleAndImg();
 
     @Override
-    public Loader<List<Cover>> onCreateLoader(int id, Bundle args) {
-        return new LoaderCover(getContext());
-    }
+   abstract public Loader<List<Cover>> onCreateLoader(int id, Bundle args);
 
     @Override
     public void onLoadFinished(Loader<List<Cover>> loader, List<Cover> data) {
@@ -101,7 +92,6 @@ public class CoverFragment extends Fragment implements LoaderManager.LoaderCallb
         }
         adapterCover.notifyItemChanged(positionItem);
 
-
     }
 
     @Override
@@ -115,6 +105,4 @@ public class CoverFragment extends Fragment implements LoaderManager.LoaderCallb
         adapterCover.notifyItemChanged(positionItem);
 
     }
-
-
 }

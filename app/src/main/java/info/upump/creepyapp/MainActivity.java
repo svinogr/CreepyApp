@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -20,10 +19,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import info.upump.creepyapp.model.Cover;
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, IControllerfragment {
+        implements NavigationView.OnNavigationItemSelectedListener, IControllerFragment {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout appBarLayout;
     private  ImageView imageView;
@@ -98,20 +95,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment fragment= null;
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_history) {
+           fragment = CoverFragment.newInstance();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_favorite) {
+            fragment = FavoriteCoverFragment.newInstance();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_send_history) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }
+        if(fragment != null){
+            createFragment(fragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -131,10 +128,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void setTitle(String s, String img) {
-        collapsingToolbarLayout.setTitle(s);
+    public void setTitle(String title, int imgIdent) {
+        collapsingToolbarLayout.setTitle(title);
         appBarLayout.setExpanded(true);
-        Picasso.with(this).load(img).placeholder(R.drawable.ic_favorite_white).into(imageView);
+        Picasso.with(this).load(imgIdent).placeholder(R.drawable.ic_favorite_white).into(imageView);
     }
 
 
