@@ -48,7 +48,7 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback {
                 p.setColor(recyclerView.getResources().getColor(R.color.colorSwipeToRead));
                 RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
                 c.drawRect(background,p);
-                icon = BitmapFactory.decodeResource( recyclerView.getResources(), R.drawable.ic_eye);
+                icon = BitmapFactory.decodeResource( recyclerView.getResources(), R.drawable.ic_eyed);
                 RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
                 c.drawBitmap(icon,null,icon_dest,p);
             }

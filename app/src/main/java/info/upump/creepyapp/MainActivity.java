@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity
         if (!(fragment instanceof CoverFragment)) {
             fragmentTransaction.addToBackStack(null);
         }
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
 

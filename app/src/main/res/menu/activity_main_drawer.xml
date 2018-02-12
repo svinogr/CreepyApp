@@ -19,7 +19,7 @@
             <item
                 android:id="@+id/nav_send_history"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Прислать свою историю" />
 
         </menu>
     </item>

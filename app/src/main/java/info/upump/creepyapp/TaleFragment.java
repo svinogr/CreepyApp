@@ -2,6 +2,7 @@ package info.upump.creepyapp;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,7 @@ public class TaleFragment extends Fragment {
     private static final String IMG = "img";
     private Cover cover;
     private Tale tale;
+    private FloatingActionButton floatingActionButton;
     private WebView text;
     private TextView title;
     private Toolbar toolbar;
@@ -86,12 +88,16 @@ public class TaleFragment extends Fragment {
         // Inflate the layout for this fragment
         View inflate = inflater.inflate(R.layout.fragment_tale, container, false);
 
-        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
+        floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.setVisibility(View.VISIBLE);
+        setFavoriteColorToFab();
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("fab fab");
+                cover.setFavorite(!cover.isFavorite());
+                CoverDao coverDao = new CoverDao(getContext());
+                coverDao.update(cover);
             }
         });
 
@@ -102,6 +108,17 @@ public class TaleFragment extends Fragment {
         text.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBackWeb));
         text.loadDataWithBaseURL(null, getColoredTextForWebView(), "text/html", "UTF-8", null);
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cover.setFavorite(!cover.isFavorite());
+                CoverDao coverDao = new CoverDao(getContext());
+                if(coverDao.update(cover)){
+                    setFavoriteColorToFab();
+                }
+            }
+        });
+
         cover.setRead(true);
         CoverDao coverDao = new CoverDao(getContext());
         coverDao.update(cover);
@@ -109,11 +126,17 @@ public class TaleFragment extends Fragment {
         return inflate;
     }
 
+    private void setFavoriteColorToFab() {
+        if (cover.isFavorite()) {
+            floatingActionButton.setColorFilter(Color.RED);
+        } else floatingActionButton.setColorFilter(Color.WHITE);
+    }
+
     @NonNull
     private String getColoredTextForWebView() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(START_HTML);
-        stringBuilder.append("#"+Integer.toHexString(ContextCompat.getColor(getContext(), R.color.colorTextWeb) & 0x00ffffff) + MIDLLE_HTML);
+        stringBuilder.append("#" + Integer.toHexString(ContextCompat.getColor(getContext(), R.color.colorTextWeb) & 0x00ffffff) + MIDLLE_HTML);
         stringBuilder.append(tale.getText());
         stringBuilder.append(END_HTML);
         return stringBuilder.toString();

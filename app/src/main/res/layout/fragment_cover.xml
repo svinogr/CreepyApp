@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context="info.upump.creepyapp.CoverFragment">
     <android.support.v7.widget.RecyclerView
+        android:background="@color/colorBGRecycler"
         android:id="@+id/cover_fragment_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
