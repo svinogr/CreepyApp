@@ -93,6 +93,7 @@ public class CoverDao extends DataBaseDao implements IData<Cover> {
                 coverList.add(cover);
             } while (cursor.moveToNext());
         }
+
         return coverList;
     }
 
@@ -111,6 +112,7 @@ public class CoverDao extends DataBaseDao implements IData<Cover> {
         cv.put(DBHelper.TABLE_KEY_IMG_COVER, cover.getImg());
         long update = sqLiteDatabase.update(DBHelper.TABLE_COVER, cv, DBHelper.TABLE_KEY_ID + "=" + cover.getId(), null);
         System.out.println(update);
+       //close();
         return update>0;
     }
 }

@@ -67,11 +67,14 @@ public class TaleFragment extends Fragment {
         super.onCreate(savedInstanceState);
         System.out.println("onCreate");
         if (getArguments() != null) {
+            System.out.println("onCreate2");
             cover = new Cover();
             cover.setId(getArguments().getLong(ID));
             cover.setTitle(getArguments().getString(TITLE));
             cover.setRate(getArguments().getInt(RATE));
-            cover.setFavorite(getArguments().getBoolean(FAVORITE));
+            if (savedInstanceState != null) {
+                cover.setFavorite(savedInstanceState.getBoolean(FAVORITE));
+            } else cover.setFavorite(getArguments().getBoolean(FAVORITE));
             cover.setRead(getArguments().getBoolean(READ));
             cover.setAuthor(new Author(getArguments().getLong(ID_AUTHOR)));
             cover.setImg(getArguments().getString(IMG));
@@ -92,14 +95,6 @@ public class TaleFragment extends Fragment {
         floatingActionButton.setVisibility(View.VISIBLE);
         setFavoriteColorToFab();
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cover.setFavorite(!cover.isFavorite());
-                CoverDao coverDao = new CoverDao(getContext());
-                coverDao.update(cover);
-            }
-        });
 
         int imgIdent = RandomImg.getRandomIdentForImg(getContext());
         iControllerfragment.setTitle(cover.getTitle(), imgIdent);
@@ -113,7 +108,7 @@ public class TaleFragment extends Fragment {
             public void onClick(View v) {
                 cover.setFavorite(!cover.isFavorite());
                 CoverDao coverDao = new CoverDao(getContext());
-                if(coverDao.update(cover)){
+                if (coverDao.update(cover)) {
                     setFavoriteColorToFab();
                 }
             }
@@ -127,6 +122,7 @@ public class TaleFragment extends Fragment {
     }
 
     private void setFavoriteColorToFab() {
+        System.out.println(cover.isFavorite());
         if (cover.isFavorite()) {
             floatingActionButton.setColorFilter(Color.RED);
         } else floatingActionButton.setColorFilter(Color.WHITE);
@@ -146,5 +142,11 @@ public class TaleFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         iControllerfragment = (IControllerFragment) context;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(FAVORITE, cover.isFavorite());
     }
 }

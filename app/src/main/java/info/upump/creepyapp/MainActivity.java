@@ -1,5 +1,7 @@
 package info.upump.creepyapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -23,6 +25,7 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IControllerFragment {
 
+    private static final String MOON = "moon";
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout appBarLayout;
     private ImageView imageView;
@@ -34,8 +37,14 @@ public class MainActivity extends AppCompatActivity
 
 
         if (savedInstanceState == null) {
+            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+            boolean moon = sharedPref.getBoolean(MOON,false);
             // Set the local night mode to some value
+            if(moon){
             getDelegate().setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+            }else  getDelegate().setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_NO);
             // Now recreate for it to take effect
             recreate();
@@ -98,19 +107,24 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
         if (id == R.id.action_settings) {
             int mode = AppCompatDelegate.getDefaultNightMode();
             if (mode == AppCompatDelegate.MODE_NIGHT_NO) {
 
                 getDelegate().setDefaultNightMode(
                         AppCompatDelegate.MODE_NIGHT_YES);
-
+                editor.putBoolean("moon", true);
 
             } else {
                 getDelegate().setDefaultNightMode(
                         AppCompatDelegate.MODE_NIGHT_NO);
-
+                editor.putBoolean(MOON, false);
             }
+
+
+            editor.apply();//студия посоветовала вместо комит???
 
             recreate();
 

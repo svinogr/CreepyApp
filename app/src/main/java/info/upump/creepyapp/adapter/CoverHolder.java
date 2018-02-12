@@ -42,17 +42,17 @@ class CoverHolder extends RecyclerView.ViewHolder{
 
     public void bind(Cover cover){
         this.cover = cover;
-        System.out.println(cover.toString());
 
         title.setText(cover.getTitle());
 
         if(cover.isFavorite()){
             System.out.println(cover.isFavorite());
-        Picasso.with(itemView.getContext()).load(R.drawable.ic_favorite).into(favoriteImg);
+            favoriteImg.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.ic_favorite));
         } else favoriteImg.setImageDrawable(null);
 
         if(cover.isRead()){
-            Picasso.with(itemView.getContext()).load(R.drawable.ic_eye).into(readImg);
+            readImg.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.ic_eyed));
         } else readImg.setImageDrawable(null);
+
     }
 }
