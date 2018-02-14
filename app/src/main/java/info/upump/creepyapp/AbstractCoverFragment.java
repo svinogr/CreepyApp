@@ -61,15 +61,15 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
         floatingActionButton.setVisibility(View.INVISIBLE);
         setTitleAndImg();
 
-   //    AdView mNativeAd = inflate.findViewById(R.id.adView);
-      //  AdRequest adRequest = new AdRequest.Builder()
-           //    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-           //     .build();
+       AdView mNativeAd = inflate.findViewById(R.id.adView);
+      AdRequest adRequest = new AdRequest.Builder()
+        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+        .build();
         //You can add the following code if you are testing in an emulator
-         /*   AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();*/
-     //  mNativeAd.loadAd(adRequest);
+          //  AdRequest adRequest = new AdRequest.Builder()
+            //    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+              //  .build();
+       mNativeAd.loadAd(adRequest);
         return inflate;
     }
 
