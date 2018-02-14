@@ -36,8 +36,6 @@ public class TaleFragment extends Fragment {
     private Tale tale;
     private FloatingActionButton floatingActionButton;
     private WebView text;
-    private TextView title;
-    private Toolbar toolbar;
     private IControllerFragment iControllerfragment;
     private static final String START_HTML = "<html><body style=\"text-align:justify; color:";
     private static final String MIDLLE_HTML = " \">";
@@ -65,9 +63,7 @@ public class TaleFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("onCreate");
         if (getArguments() != null) {
-            System.out.println("onCreate2");
             cover = new Cover();
             cover.setId(getArguments().getLong(ID));
             cover.setTitle(getArguments().getString(TITLE));

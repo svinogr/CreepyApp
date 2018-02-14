@@ -8,6 +8,5 @@ import android.support.v4.app.Fragment;
 
 public interface IControllerFragment {
     void createFragment(Fragment fragment);
-
     void setTitle(String title, int imgIdent);
 }

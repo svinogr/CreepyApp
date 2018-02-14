@@ -43,7 +43,6 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback {
                 p.setColor(recyclerView.getResources().getColor(R.color.colorSwipeToFavorite));
                 RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
                 c.drawRect(background,p);
-               // icon = BitmapFactory.decodeResource( recyclerView.getResources(),R.drawable.ic_favorite);
                 Drawable drawable = recyclerView.getResources().getDrawable(R.drawable.ic_favorite);
                 icon = decodeFromDrawable(drawable);
                 RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
@@ -52,7 +51,6 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback {
                 p.setColor(recyclerView.getResources().getColor(R.color.colorSwipeToRead));
                 RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
                 c.drawRect(background,p);
-                ///icon = BitmapFactory.decodeResource( recyclerView.getResources(), R.drawable.ic_eyed);
                  Drawable drawable = recyclerView.getResources().getDrawable(R.drawable.ic_eyed);
                  icon = decodeFromDrawable(drawable);
                 RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);

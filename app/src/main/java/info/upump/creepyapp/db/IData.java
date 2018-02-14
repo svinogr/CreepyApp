@@ -12,6 +12,5 @@ public interface IData<T> {
     List<T> getAll();
     List<T> getByParent(Cover cover);
     T save(T obkect);
-
     List<T> getAllFavorite();
 }

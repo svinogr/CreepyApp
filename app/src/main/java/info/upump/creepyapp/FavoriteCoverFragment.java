@@ -13,11 +13,11 @@ import info.upump.creepyapp.model.Cover;
  */
 
 public class FavoriteCoverFragment extends AbstractCoverFragment {
+    private LoaderFavoriteCover loaderFavoriteCover;
     @Override
     void setTitleAndImg() {
-        System.out.println("favorite");
         int imgIdent  = getResources().getIdentifier("favorite", "drawable", getContext().getPackageName());
-        iControllerfragment.setTitle("Избранное", imgIdent);
+        iControllerfragment.setTitle(getString(R.string.cover_title_favorite), imgIdent);
     }
 
     public FavoriteCoverFragment() {
@@ -29,12 +29,16 @@ public class FavoriteCoverFragment extends AbstractCoverFragment {
 
     @Override
     public Loader<List<Cover>> onCreateLoader(int id, Bundle args) {
-        return new LoaderFavoriteCover(getContext());
+      loaderFavoriteCover = new LoaderFavoriteCover(getContext());
+        return loaderFavoriteCover;
     }
 
     @Override
     void notifyFavorite(int positionItem) {
         listCover.remove(positionItem);
         adapterCover.notifyItemRemoved(positionItem);
-    }
+        getLoaderManager().restartLoader(0, null, this);
+           }
+
+
 }

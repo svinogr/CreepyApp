@@ -39,7 +39,7 @@ public class CoverFragment extends AbstractCoverFragment {
     void setTitleAndImg() {
         System.out.println("history");
         int imgIdent  = getResources().getIdentifier("history", "drawable", getContext().getPackageName());
-        iControllerfragment.setTitle("Истории", imgIdent);
+        iControllerfragment.setTitle(getString(R.string.cover_title_history), imgIdent);
     }
 
     @Override

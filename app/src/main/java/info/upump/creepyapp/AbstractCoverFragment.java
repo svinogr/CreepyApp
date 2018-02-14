@@ -34,8 +34,6 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
     protected List<Cover> listCover = new ArrayList<>();
     protected AdapterCover adapterCover;
     protected IControllerFragment iControllerfragment;
-    private NativeExpressAdView mNativeAd;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,7 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterCover);
-        
+
         ItemTouchHelper.Callback itemTouchHelperCallback = new SwipeCallback(this);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -61,15 +59,11 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
         floatingActionButton.setVisibility(View.INVISIBLE);
         setTitleAndImg();
 
-       AdView mNativeAd = inflate.findViewById(R.id.adView);
-      AdRequest adRequest = new AdRequest.Builder()
-        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-        .build();
-        //You can add the following code if you are testing in an emulator
-          //  AdRequest adRequest = new AdRequest.Builder()
-            //    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-              //  .build();
-       mNativeAd.loadAd(adRequest);
+        AdView mNativeAd = inflate.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                               .build();
+
+        mNativeAd.loadAd(adRequest);
         return inflate;
     }
 
@@ -106,7 +100,7 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
         CoverDao coverDao = new CoverDao(getContext());
         String text = null;
         if (!coverDao.update(cover)) {
-            cover.setRead(!cover.isFavorite());
+            cover.setFavorite(!cover.isFavorite());
 
         } else {
             if (cover.isFavorite()) {
@@ -128,7 +122,7 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
         String text = null;
         if (!coverDao.update(cover)) {
             cover.setRead(!cover.isRead());
-        }else {
+        } else {
             if (cover.isRead()) {
                 text = getString(R.string.toast_read_add);
             } else text = getString(R.string.toast_read_remove);
