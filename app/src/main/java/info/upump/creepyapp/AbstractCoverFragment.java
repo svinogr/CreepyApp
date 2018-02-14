@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.NativeExpressAdView;
 
 import java.util.ArrayList;
@@ -60,15 +61,16 @@ public abstract class AbstractCoverFragment extends Fragment implements LoaderMa
         floatingActionButton.setVisibility(View.INVISIBLE);
         setTitleAndImg();
 
-        mNativeAd = inflate.findViewById(R.id.nativeAd);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
+       // AdView mNativeAd = inflate.findViewById(R.id.adView);
+       // AdRequest adRequest = new AdRequest.Builder()
+            //    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            //    .build();
         //You can add the following code if you are testing in an emulator
-            /*AdRequest adRequest = new AdRequest.Builder()
+         /*   AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();*/
-        mNativeAd.loadAd(adRequest);        return inflate;
+       // mNativeAd.loadAd(adRequest);
+        return inflate;
     }
 
     abstract void setTitleAndImg();

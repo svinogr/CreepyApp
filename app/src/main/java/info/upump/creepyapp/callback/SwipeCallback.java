@@ -1,7 +1,6 @@
 package info.upump.creepyapp.callback;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -13,7 +12,6 @@ import android.view.View;
 
 import info.upump.creepyapp.ISwipeController;
 import info.upump.creepyapp.R;
-import info.upump.creepyapp.adapter.NativeAdViewHolder;
 
 
 /**
@@ -32,9 +30,7 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-       if(viewHolder instanceof NativeAdViewHolder){
-           return;
-       }
+
         Bitmap icon;
         Paint p = new Paint();
         if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
@@ -87,9 +83,7 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        if(viewHolder instanceof NativeAdViewHolder){
-            return;
-        }
+
         int positionItem = viewHolder.getAdapterPosition();
         switch (direction) {
             case 8:

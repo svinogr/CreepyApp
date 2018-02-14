@@ -48,6 +48,7 @@
     <include layout="@layout/content_main" />
 
 
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -56,4 +57,6 @@
         android:src="@drawable/ic_favorite"
         app:layout_anchor="@id/main.appbar"
         app:layout_anchorGravity="bottom|right|end" />
+
+
 </android.support.design.widget.CoordinatorLayout>

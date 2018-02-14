@@ -21,6 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
@@ -40,12 +43,12 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 
-            boolean moon = sharedPref.getBoolean(MOON,false);
+            boolean moon = sharedPref.getBoolean(MOON, false);
             // Set the local night mode to some value
-            if(moon){
-            getDelegate().setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES);
-            }else  getDelegate().setDefaultNightMode(
+            if (moon) {
+                getDelegate().setDefaultNightMode(
+                        AppCompatDelegate.MODE_NIGHT_YES);
+            } else getDelegate().setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_NO);
             // Now recreate for it to take effect
             recreate();
@@ -76,6 +79,14 @@ public class MainActivity extends AppCompatActivity
             CoverFragment coverFragment = CoverFragment.newInstance();
             createFragment(coverFragment);
         }
+
+        AdView mNativeAd = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mNativeAd.loadAd(adRequest);
+
 
     }
 
