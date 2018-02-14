@@ -16,7 +16,7 @@ public class FavoriteCoverFragment extends AbstractCoverFragment {
     @Override
     void setTitleAndImg() {
         System.out.println("favorite");
-        int imgIdent  = getResources().getIdentifier("history", "drawable", getContext().getPackageName());
+        int imgIdent  = getResources().getIdentifier("favorite", "drawable", getContext().getPackageName());
         iControllerfragment.setTitle("Избранное", imgIdent);
     }
 

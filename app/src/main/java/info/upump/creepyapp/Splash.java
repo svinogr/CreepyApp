@@ -16,18 +16,13 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DBHelper helper = DBHelper.getHelper(getApplicationContext());
-       helper.create_db();
-     /*   try {
+        helper.create_db();
+        try {
             Thread.sleep(700);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
-     /*   ReaderJson readerJson = new ReaderJson(this);
-        try {
-            readerJson.starr();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
+        }
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

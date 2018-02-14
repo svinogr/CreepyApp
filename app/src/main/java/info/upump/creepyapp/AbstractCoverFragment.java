@@ -12,6 +12,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +29,11 @@ import info.upump.creepyapp.model.Cover;
  * Created by explo on 08.02.2018.
  */
 
-public abstract class AbstractCoverFragment  extends Fragment implements LoaderManager.LoaderCallbacks<List<Cover>>, ISwipeController {
+public abstract class AbstractCoverFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Cover>>, ISwipeController {
     protected List<Cover> listCover = new ArrayList<>();
     protected AdapterCover adapterCover;
     protected IControllerFragment iControllerfragment;
+    private NativeExpressAdView mNativeAd;
 
 
     @Override
@@ -47,19 +52,29 @@ public abstract class AbstractCoverFragment  extends Fragment implements LoaderM
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterCover);
-
+        
         ItemTouchHelper.Callback itemTouchHelperCallback = new SwipeCallback(this);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab);
         floatingActionButton.setVisibility(View.INVISIBLE);
         setTitleAndImg();
-        return inflate;
+
+        mNativeAd = inflate.findViewById(R.id.nativeAd);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        //You can add the following code if you are testing in an emulator
+            /*AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();*/
+        mNativeAd.loadAd(adRequest);        return inflate;
     }
+
     abstract void setTitleAndImg();
 
     @Override
-   abstract public Loader<List<Cover>> onCreateLoader(int id, Bundle args);
+    abstract public Loader<List<Cover>> onCreateLoader(int id, Bundle args);
 
     @Override
     public void onLoadFinished(Loader<List<Cover>> loader, List<Cover> data) {
@@ -87,10 +102,17 @@ public abstract class AbstractCoverFragment  extends Fragment implements LoaderM
         Cover cover = listCover.get(positionItem);
         cover.setFavorite(!cover.isFavorite());
         CoverDao coverDao = new CoverDao(getContext());
+        String text = null;
         if (!coverDao.update(cover)) {
             cover.setRead(!cover.isFavorite());
+
+        } else {
+            if (cover.isFavorite()) {
+                text = getString(R.string.toast_favorite_add);
+            } else text = getString(R.string.toast_favorite_remove);
         }
-      notifyFavorite(positionItem);
+        notifyFavorite(positionItem);
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -101,10 +123,16 @@ public abstract class AbstractCoverFragment  extends Fragment implements LoaderM
         Cover cover = listCover.get(positionItem);
         cover.setRead(!cover.isRead());
         CoverDao coverDao = new CoverDao(getContext());
+        String text = null;
         if (!coverDao.update(cover)) {
             cover.setRead(!cover.isRead());
+        }else {
+            if (cover.isRead()) {
+                text = getString(R.string.toast_read_add);
+            } else text = getString(R.string.toast_read_remove);
         }
         adapterCover.notifyItemChanged(positionItem);
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
 
     }
 }

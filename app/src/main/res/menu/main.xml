@@ -7,10 +7,10 @@
         android:orderInCategory="100"
         android:title="Режим"
         app:showAsAction="ifRoom" />
-    <item
+  <!--  <item
         android:id="@+id/action_about"
         android:icon="@drawable/ic_about"
         android:orderInCategory="100"
         android:title="О приложении"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 </menu>

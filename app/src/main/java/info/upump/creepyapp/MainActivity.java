@@ -1,6 +1,7 @@
 package info.upump.creepyapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -131,6 +132,10 @@ public class MainActivity extends AppCompatActivity
 
             return true;
         }
+        /*if(id == R.id.action_about){
+            AboutDialog aboutDialog = new AboutDialog();
+            aboutDialog.show(getSupportFragmentManager(),"about");
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -149,6 +154,13 @@ public class MainActivity extends AppCompatActivity
             fragment = FavoriteCoverFragment.newInstance();
 
         } else if (id == R.id.nav_send_history) {
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.mail_to)});
+            email.putExtra(Intent.EXTRA_SUBJECT, "CreepyApp");
+            email.putExtra(Intent.EXTRA_TEXT, "");
+            email.setType("plain/text");
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
 
         }
         if (fragment != null) {
