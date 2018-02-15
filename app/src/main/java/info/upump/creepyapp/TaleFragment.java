@@ -8,12 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import info.upump.creepyapp.db.CoverDao;
 import info.upump.creepyapp.db.IData;
@@ -24,7 +22,7 @@ import info.upump.creepyapp.model.Cover;
 import info.upump.creepyapp.model.Tale;
 
 
-public class TaleFragment extends Fragment {
+public class TaleFragment extends Fragment implements IVolumeControl {
     private static final String ID = "id";
     private static final String TITLE = "title";
     private static final String RATE = "rate";
@@ -138,11 +136,26 @@ public class TaleFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         iControllerfragment = (IControllerFragment) context;
+
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(FAVORITE, cover.isFavorite());
+    }
+
+    @Override
+    public void Up() {
+        System.out.println(text.pageUp(false));
+       // text.scrollTo(25, 25);
+        System.out.println(text.getScrollX()+" "+ text.getScrollY());
+
+    }
+
+    @Override
+    public void Down() {
+        System.out.println(text.pageDown(true));
     }
 }

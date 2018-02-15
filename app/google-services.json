@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "431514886491",
+    "firebase_url": "https://creepy-c2e42.firebaseio.com",
+    "project_id": "creepy-c2e42",
+    "storage_bucket": "creepy-c2e42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431514886491:android:c7cd514b0bcddb64",
+        "android_client_info": {
+          "package_name": "info.upump.creepyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431514886491-675uj993qpcsju0f3pfdjrvks34eqcvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHtUO4KP3_UyPgxb30xD2ZwFc47TXdA_c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,11 +16,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private AppBarLayout appBarLayout;
     private ImageView imageView;
     private Menu menuTool;
+    public IVolumeControl iVolumeControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,8 @@ public class MainActivity extends AppCompatActivity
             CoverFragment coverFragment = CoverFragment.newInstance();
             createFragment(coverFragment);
         }
+        MobileAds.initialize(this, "ca-app-pub-7715449191385617~5078694184");
+
 
     }
 
@@ -132,10 +138,7 @@ public class MainActivity extends AppCompatActivity
 
             return true;
         }
-        /*if(id == R.id.action_about){
-            AboutDialog aboutDialog = new AboutDialog();
-            aboutDialog.show(getSupportFragmentManager(),"about");
-        }*/
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -191,5 +194,30 @@ public class MainActivity extends AppCompatActivity
         Picasso.with(this).load(imgIdent).into(imageView);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if( getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof IVolumeControl) {
+            iVolumeControl = (IVolumeControl) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            System.out.println(iVolumeControl);
+        }
+        switch (keyCode) {
 
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if(iVolumeControl != null){
+                    iVolumeControl.Up();
+                    Toast.makeText(this, "UP", Toast.LENGTH_SHORT)
+                            .show();
+                }
+
+
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if(iVolumeControl != null){
+                    iVolumeControl.Down();
+                }
+
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
