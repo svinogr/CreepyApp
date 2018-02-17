@@ -117,6 +117,7 @@ public class TaleFragment extends Fragment implements IVolumeControl {
 
         AdView mNativeAd = inflate.findViewById(R.id.adView2);
         AdRequest adRequest = new AdRequest.Builder()
+          //      .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
 
         mNativeAd.loadAd(adRequest);

@@ -16,7 +16,9 @@
     <string name="toast_read_add">Отмечено как прочитаное</string>
     <string name="toast_read_remove">Отмечено как непрочитаное</string>
     <string name="about_dialog_text">Тест</string>
-    <string name="adUnitId">ca-app-pub-7715449191385617/5078694184</string>
+    <string name="adUnitId">ca-app-pub-7715449191385617/1509671184</string>
+   <!-- <string name="adUnitId">ca-app-pub-3940256099942544/6300978111</string>-->
     <string name="cover_title_history">Истории</string>
     <string name="cover_title_favorite">Избранное</string>
+    <string name="admob_initial">ca-app-pub-7715449191385617~5078694184</string>
 </resources>

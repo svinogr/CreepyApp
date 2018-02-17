@@ -11,14 +11,14 @@
         android:id="@+id/cover_fragment_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/cardView2"
+        android:layout_above="@id/cardView1"
         android:background="@color/colorBGRecycler" />
 
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardView2"
+        android:id="@+id/cardView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

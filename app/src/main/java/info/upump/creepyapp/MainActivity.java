@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
             CoverFragment coverFragment = CoverFragment.newInstance();
             createFragment(coverFragment);
         }
-        MobileAds.initialize(this, "ca-app-pub-7715449191385617~5078694184");
+        MobileAds.initialize(this, getString(info.upump.creepyapp.R.string.admob_initial));
 
 
     }

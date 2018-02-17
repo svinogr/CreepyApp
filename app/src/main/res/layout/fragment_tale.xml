@@ -44,7 +44,6 @@
     android:layout_centerHorizontal="true"
     android:elevation="10dp"
     ads:layout_constraintBottom_toBottomOf="parent"
-    ads:layout_constraintStart_toStartOf="@+id/cover_fragment_recycler"
     app:cardBackgroundColor="@color/colorPrimaryLight"
     app:cardCornerRadius="5dp">
 
@@ -52,7 +51,6 @@
         android:id="@+id/adView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/adUnitId" />
 </android.support.v7.widget.CardView>
