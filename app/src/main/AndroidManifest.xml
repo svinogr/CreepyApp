@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="info.upump.russianapp">
+    package="info.upump.creepyapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="info.upump.russianapp.Splash"
+            android:name="info.upump.creepyapp.Splash"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/SplashTheme">
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="info.upump.russianapp.MainActivity"
+            android:name="info.upump.creepyapp.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
